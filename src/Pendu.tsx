@@ -37,9 +37,9 @@ function Pendu() {
       setLetterAlreadyUse([...letterAlreadyUse,letter])
       setLife(`${Number(life) + 1}`);
       console.log('mauvaise lettre');
-      if(end(life)){
-        
-      }
+      // if(end(life)){
+
+      // }
     }
   };
 
