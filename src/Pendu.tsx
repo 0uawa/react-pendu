@@ -9,30 +9,44 @@ function Pendu() {
     word.map(() => res.push('-'));
     return res;
   };
-  const [stepLink, setStepLink] = useState('1');
+  const [life, setLife] = useState('1');
+  const [letterAlreadyUse,setLetterAlreadyUse] = useState([''])
 
   const [hiddenWord, setHiddenWord] = useState(createHiddenWord(word));
+  const end = (life : number) => life==8
   const testLetter = (letter: string) => {
-    console.log(createHiddenWord(word));
-    if (letter in word) {
+    
+    console.log(hiddenWord);
+    if(letterAlreadyUse.includes(letter)){
+      console.log('lettre deja utilisé')
+    }
+    else if (word.includes(letter)) {
+      setLetterAlreadyUse([...letterAlreadyUse,letter])
       console.log('bonne lettre');
       setHiddenWord(
-        word.map((l, i) => {
+        word.map((l,i) => {
           if (l == letter) {
-            hiddenWord[i] = letter;
+            return `${l}`
+          }else{
+            return hiddenWord[i]
           }
         })
       );
+    
     } else {
-      setStepLink(`${Number(stepLink) + 1}`);
+      setLetterAlreadyUse([...letterAlreadyUse,letter])
+      setLife(`${Number(life) + 1}`);
       console.log('mauvaise lettre');
+      if(end(life)){
+        
+      }
     }
   };
 
   return (
     <>
       <p>/* mot que l'on doit deviner : {word} */</p>
-      <p>{hiddenWord.map()}</p>
+      <p>{hiddenWord.map((letter)=>letter)}</p>
       <p>{letter}</p>
       <input
         id="choose"
@@ -41,6 +55,7 @@ function Pendu() {
         onChange={(e) => setLetter(e.target.value)}
       />
       <button onClick={() => testLetter(letter)}>to propose</button>
+      <img src={`/src/assets/penduPictures/${life}.png`}></img>
     </>
   );
 }
